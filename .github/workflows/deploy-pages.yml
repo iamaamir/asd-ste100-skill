@@ -24,6 +24,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Verify static site
         run: python3 scripts/verify_site.py
+      - name: Verify playground scenarios
+        run: node --test scripts/preview.test.cjs
       - name: Check GitHub Pages is enabled
         env:
           GH_TOKEN: ${{ github.token }}

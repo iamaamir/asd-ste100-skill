@@ -47,6 +47,19 @@ Search indexing is not automatic or guaranteed. Once the site is live, consider 
 
 ## Evidence and compliance
 
-The page deliberately distinguishes **53 mapped writing rules**, **21 baseline checker regression tests**, and **three successful baseline CI versions** from linguistic or safety accuracy. These numbers describe the verification baseline as of **2026-11-20** and should be updated if the package changes. Do not display unsupported effectiveness percentages, claim certified STE compliance, imply that all 53 rules are implemented as executable checks, or reproduce the copyrighted official dictionary.
+The page deliberately distinguishes **53 mapped writing rules** and **21 baseline checker regression tests** from linguistic or safety accuracy. These numbers describe the verification baseline as of **2026-11-20** and should be updated if the package changes. Do not display unsupported effectiveness percentages, claim certified STE compliance, imply that all 53 rules are implemented as executable checks, or reproduce the copyrighted official dictionary.
 
 The project is not officially affiliated with or endorsed by ASD/STEMG. Preserve the independent-project and human-review disclaimers.
+
+## Landing page information architecture
+
+The main page intentionally has just four sections: hero, how it works, inline-highlight playground, and install. Two concise evidence figures appear below the workflow; human review limitations appear in the demo disclosure and a small note after install. Python CI version coverage belongs in Actions, not as a visitor-facing metric.
+
+The playground is educational. It is **not** a port of the Python checker: its only checks are approximate sentence length, literal semicolons, and common contractions. It runs entirely in the browser and must never be presented as a compliance validator. Its mirrored textarea marks affected ranges; each diagnostic focuses the original editable text. The pure rules and six example fixtures live in `docs/assets/preview-core.js` and are tested without dependencies via `node --test scripts/preview.test.cjs`.
+
+Run site and demo checks with:
+
+```bash
+python3 scripts/verify_site.py
+node --test scripts/preview.test.cjs
+```

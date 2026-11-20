@@ -69,7 +69,12 @@ def verify():
     assert '<loc>' + EXPECTED + '</loc>' in (SITE / 'sitemap.xml').read_text()
     assert (SITE / 'assets/social-preview.png').stat().st_size > 2000
     assert 'aria-label="Copy installation command"' in html
-    assert 'not a full ste validator' in html.lower()
+    assert html.count('<section ') == 4, 'Keep the landing page concise'
+    assert html.count('data-example=') == 6, 'Six scenario chips expected'
+    assert 'id="demo-highlight"' in html and 'id="issue-list"' in html, 'Inline diagnostics missing'
+    assert 'CI ENVIRONMENTS' not in html, 'Do not market Python CI environments'
+    assert any(a.get('src','').endswith('preview-core.js') for a in page.scripts), 'Preview core script missing'
+    assert 'not the full python checker' in html.lower(), 'Demo limitations must be visible'
     assert 'npx skills add iamaamir/asd-ste100-skill --skill ste-technical-writing' in html
     print(f'PASS: SEO, metadata, local assets, semantic structure, JSON-LD, anchors and installation command ({len(page.links)} links checked)')
 
