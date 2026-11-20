@@ -71,3 +71,17 @@ The four full-bleed chapters use **native CSS `position: sticky`** to create a s
 The installation illustration floats gently using CSS animation and stays still when the visitor requests reduced motion. The reduced-motion version also disables the stacked pinning and keeps all content in normal reading order. The teal installation panel matches the workflow illustration and remains full width at every breakpoint.
 
 In addition to the normal checks, inspect this behavior in a browser at desktop, tablet, and phone widths. Verify both scroll directions, the hero's playground link, focus and hover in the interactive example, the footer, and reduced-motion settings. In a long chapter, the final lines must remain reachable before the next panel overlays them.
+
+## Accessibility, search, and AI-readable overview
+
+- The install chapter constrains its content to the same centered `.wrap` as the other chapters, even when its stacked layout uses flexbox.
+- The independent-project and dictionary-review notice lives **inside** the install chapter so it stays legible and doesn't peek out as a separate layer under the sticky panel.
+- The review diagram is an accessible group, not one giant image; its visible headings remain navigable to assistive technology.
+- The editor's real `<textarea>` remains keyboard-editable, with hover/caret tooltips, a forced-colors text fallback, focus outlines, and reduced-motion support.
+- Small-text colors received a contrast pass. `scripts/verify_site.py` guards selected representative foreground/background pairs at **4.5:1** minimum, verifies ARIA references, and prevents duplicate IDs. This is not a complete WCAG conformance audit.
+- `llms.txt` is published at `https://iamaamir.github.io/asd-ste100-skill/llms.txt`. It is a curated map of project resources under the community [llms.txt proposal](https://llmstxt.org/); it does **not** guarantee discovery, search rank, or adoption by LLM systems. No official ASD copyright materials are reproduced in it.
+- SEO continues to rely on crawlable HTML, a descriptive title, meta description, canonical URL, JSON-LD, social preview, sitemap, and `robots.txt`. Keep these accurate when paths change.
+
+### Browser smoke-test scope
+
+The site was exercised in Chromium at 1440, 1274, 900, 768, 390, and 320 CSS-pixel viewports (heights 650–950). The checks covered clipping, keyboard focus order, anchor links, editor hover and caret tooltips, reduced motion, high-contrast/forced-colors fallback, console errors, and horizontal overflow. Real assistive-technology sessions (such as VoiceOver or NVDA), a full WCAG audit, and real-device touch testing are **not** represented as complete.

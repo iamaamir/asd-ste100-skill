@@ -18,6 +18,8 @@ class SiteParser(HTMLParser):
         self.tags = []
         self.links = []
         self.ids = set()
+        self.duplicate_ids = set()
+        self.aria_refs = []
         self.titles = []
         self.in_title = False
         self.meta = []
@@ -29,7 +31,11 @@ class SiteParser(HTMLParser):
         self.tags.append(tag)
         if tag == 'h1': self.h1 += 1
         if tag == 'title': self.in_title = True
-        if props.get('id'): self.ids.add(props['id'])
+        if props.get('id'):
+            if props['id'] in self.ids: self.duplicate_ids.add(props['id'])
+            self.ids.add(props['id'])
+        for attribute in ('aria-labelledby', 'aria-describedby'):
+            if props.get(attribute): self.aria_refs.extend(props[attribute].split())
         if tag in {'a', 'link', 'script', 'img'}: self.links.append((tag, props.get({'a':'href','link':'href','script':'src','img':'src'}[tag])))
         if tag == 'meta': self.meta.append(props)
         if tag == 'script': self.scripts.append(props)
@@ -48,6 +54,9 @@ def verify():
     assert html.lstrip().startswith('<!doctype html>'), 'HTML5 doctype missing'
     assert len(page.titles) == 1 and 'ASD-STE100' in page.titles[0] and 'Simplified Technical English' in page.titles[0], 'Missing descriptive SEO title'
     assert page.h1 == 1, 'Need one semantic H1'
+    assert not page.duplicate_ids, f'Duplicate HTML ids: {page.duplicate_ids}'
+    assert set(page.aria_refs).issubset(page.ids), f'Unresolved ARIA references: {set(page.aria_refs)-page.ids}'
+    assert html.lstrip().startswith('<!doctype html>') and '<html lang="en">' in html, 'HTML language missing'
     assert 'main' in page.tags and 'nav' in page.tags and 'footer' in page.tags, 'Semantic layout missing'
     assert any(m.get('name') == 'description' and len(m.get('content', '')) > 90 for m in page.meta), 'Meta description missing'
     assert f'href="{EXPECTED}"' in html, 'Canonical URL mismatch'
@@ -74,6 +83,8 @@ def verify():
     assert 'id="demo-highlight"' in html and 'id="issue-tooltip"' in html, 'Inline diagnostics missing'
     assert 'CI ENVIRONMENTS' not in html, 'Do not market Python CI environments'
     assert 'class="review-cycle"' in html and 'id="cycle-a"' in html, 'Connected review-cycle diagram missing'
+    assert 'class="review-cycle" role="group"' in html, 'Diagram headings must remain accessible'
+    assert 'class="wrap install-trust-note"' in html and 'Independent, not certified.' in html, 'Limitations must be inside the installation panel'
     assert 'A review loop.' not in html and 'Editor-like feedback.' not in html and 'inline findings' not in html and 'Not a one-way pipe.' not in html, 'Design discussion language leaked into landing-page copy'
     assert 'role="tooltip"' in html, 'Accessible diagnostic tooltip missing'
     assert html.count('stack-chapter') == 4, 'All four main chapters must be stacked'
@@ -88,6 +99,26 @@ def verify():
     assert 'ste-install-float' in styles and 'prefers-reduced-motion:reduce' in styles, 'Floating art and reduced-motion fallback missing'
     assert 'not the full python checker' in html.lower(), 'Demo limitations must be visible'
     assert 'npx skills add iamaamir/asd-ste100-skill --skill ste-technical-writing' in html
+
+    llms = (SITE / 'llms.txt').read_text(encoding='utf-8')
+    assert llms.startswith('# ASD-STE100') and '\n> ' in llms, 'llms.txt must follow the project-summary convention'
+    assert 'rel="describedby" type="text/markdown" href="./llms.txt"' in html, 'llms.txt discovery link missing'
+    assert 'https://github.com/iamaamir/asd-ste100-skill' in llms, 'LLM context must link to the real repository'
+    assert 'not an official publication' in llms.lower() and 'not included' in llms.lower(), 'LLM context must state compliance limitations'
+    assert len(re.findall(r'^- \[.+?\]\(https://.+?\)', llms, re.M)) >= 6, 'llms.txt resource links missing'
+    assert 'forced-colors:active' in styles, 'High-contrast text-editor fallback missing'
+    assert 'stack-chapter:focus-within' in styles, 'Focused chapter must remain navigable'
+
+    # Regression guards for small-text AA contrast on the section's solid colors.
+    def luminance(color):
+        channels = [int(color[i:i+2],16)/255 for i in (1,3,5)]
+        linear = [x/12.92 if x <= .04045 else ((x+.055)/1.055)**2.4 for x in channels]
+        return sum(a*b for a,b in zip(linear,(.2126,.7152,.0722)))
+    def contrast(fg,bg):
+        high,low=sorted((luminance(fg),luminance(bg)),reverse=True)
+        return (high+.05)/(low+.05)
+    pairs = [('#426d70','#f2f6f4'),('#466a6f','#f2f6f4'),('#c4e0e1','#0a2934'),('#315f63','#eaf5f1'),('#a9bcb2','#091015')]
+    assert all(contrast(fg,bg)>=4.5 for fg,bg in pairs), 'Small-text color contrast must be >= 4.5:1'
     print(f'PASS: SEO, metadata, local assets, semantic structure, JSON-LD, anchors and installation command ({len(page.links)} links checked)')
 
 

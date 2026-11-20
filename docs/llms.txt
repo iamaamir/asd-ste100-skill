@@ -1,0 +1,28 @@
+# ASD-STE100 Simplified Technical English Agent Skill
+
+> An independent, open-source Agent Skill for drafting, rewriting, and reviewing technical documentation using guidance from ASD-STE100 Simplified Technical English, Issue 9 (2025). It includes a portable skill, a limited structural checker, and tests.
+
+This project is maintained at https://github.com/iamaamir/asd-ste100-skill and its landing page is at https://iamaamir.github.io/asd-ste100-skill/.
+
+Important limitations: This is not an official publication, certified STE checker, or guarantee of ASD-STE100 compliance. The copyrighted official dictionary is not included. Approved vocabulary, meanings, technical correctness, and safety-critical wording require checking the official standard and appropriate human review. The browser demo checks only approximate sentence length, semicolons, and common contractions.
+
+Install with the Agent Skills CLI:
+`npx skills add iamaamir/asd-ste100-skill --skill ste-technical-writing`
+
+## Start here
+
+- [Overview and installation](https://github.com/iamaamir/asd-ste100-skill#readme): What the skill does, installation commands, and usage examples.
+- [Skill instructions](https://raw.githubusercontent.com/iamaamir/asd-ste100-skill/main/skills/ste-technical-writing/SKILL.md): Core instructions for compatible AI coding agents.
+- [Interactive demonstration](https://iamaamir.github.io/asd-ste100-skill/#playground): Educational browser demo of three structural checks; not a full STE checker.
+
+## Rule references and validation
+
+- [Writing-rule reference map](https://raw.githubusercontent.com/iamaamir/asd-ste100-skill/main/skills/ste-technical-writing/references/rules.md): Paraphrased guidance covering all 53 numbered Issue 9 writing rules.
+- [Terminology and dictionary review](https://raw.githubusercontent.com/iamaamir/asd-ste100-skill/main/skills/ste-technical-writing/references/dictionary-review.md): How to validate word approval, meaning, and technical terms with an authorized source.
+- [Review checklist](https://raw.githubusercontent.com/iamaamir/asd-ste100-skill/main/skills/ste-technical-writing/references/review-checklist.md): Structural, semantic, and safety checks.
+- [Verification record](https://raw.githubusercontent.com/iamaamir/asd-ste100-skill/main/skills/ste-technical-writing/VERIFICATION.md): What the regression tests prove and what remains unverified.
+- [Python structural checker](https://github.com/iamaamir/asd-ste100-skill/blob/main/skills/ste-technical-writing/scripts/ste_check.py): Optional standard-library-only local checker.
+
+## Official standard
+
+- [ASD-STE100 official website](https://www.asd-ste100.org/): Standard owner and official publication information. The official standard and dictionary are not redistributed here.

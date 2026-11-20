@@ -351,7 +351,7 @@ main { isolation:isolate; }
   align-items:center;
   padding-block:clamp(80px,9vh,140px);
 }
-.stack-install > .wrap {flex:1}
+.stack-install > .wrap {flex:0 1 auto; width:min(calc(100% - 76px),var(--wrap)); margin-inline:auto}
 /* Respect reading order on narrow/tall chapters: measurements in app.js
    prevent the sticky position from concealing content below the fold. */
 .install-section .install-art-inner {
@@ -375,3 +375,76 @@ main { isolation:isolate; }
 }
 html {scroll-padding-top:0}
 .install-section .install-art-inner {animation-timeline:auto}
+
+
+/* Accessibility and layout hardening: constrain the install grid even when
+   its full-height section participates in flex layout. */
+.stack-install {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:stretch;
+  gap:clamp(26px,4vh,54px);
+}
+.stack-install > .wrap { flex:0 1 auto; }
+.install-wrap { min-height:unset; }
+.install-trust-note {
+  display:flex;
+  justify-content:space-between;
+  gap:clamp(18px,4vw,55px);
+  align-items:center;
+  border-top:1px solid rgba(194,230,224,.28);
+  padding-top:clamp(17px,2.5vh,26px);
+}
+.install-trust-note p {
+  margin:0;
+  max-width:760px;
+  color:#c6e2e0;
+  font-size:clamp(12px,1vw,14px);
+  line-height:1.7;
+}
+.install-trust-note strong { color:#f2faf8; }
+.install-trust-note a {
+  color:#d8f2ef;
+  font-size:clamp(12px,1vw,14px);
+  font-weight:650;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:4px;
+  flex-shrink:0;
+}
+.install-trust-note a:hover {color:#ffffff}
+
+/* Text small enough to need AA-normal-text contrast gets stronger colors. */
+.hero-bottom span { color:#b3c6bb; }
+.scan-line small { color:#adcdc2; }
+.proof-item strong span { color:#426d70; }
+.proof-item p { color:#466a6f; font-size:12px; }
+.proof-caveat p { color:#466a6f; font-size:12px; }
+.cycle-outcome span { color:#355d63; font-size:12px; }
+.install-footnote { color:#c4e0e1!important; font-size:12px!important; }
+.install-section .art-overline,.install-section .art-bottom {color:#315f63}
+.site-footer .footer-bottom {color:#a9bcb2}
+.site-footer .footer-bottom span,.site-footer .footer-bottom a{font-size:12px}
+
+/* Keep targets and focus visible at narrow widths and through stacked panels. */
+.example-chip,.copy-button,.reset-btn,.demo-switch button { min-height:44px; }
+.install-links a,.footer-link-columns a {min-height:44px;display:inline-flex;align-items:center;}
+.stack-chapter:focus-within { z-index:10; }
+:focus-visible {outline:3px solid #def9ab;outline-offset:3px;}
+.process :focus-visible,.playground :focus-visible {outline-color:#126c72;}
+@media(max-width:900px){
+  .stack-install > .wrap {width:min(calc(100% - 58px),var(--wrap));}
+}
+@media(max-width:680px){
+  .stack-install > .wrap {width:calc(100% - 40px);}
+  .install-trust-note {flex-direction:column;align-items:flex-start;gap:12px;}
+  .install-trust-note a {white-space:normal;}
+  .install-footnote {line-height:1.7;}
+}
+@media(forced-colors:active){
+  .editor-highlight-layer {display:none;}
+  .editor-area textarea {color:CanvasText!important;-webkit-text-fill-color:CanvasText!important;}
+  .issue-tooltip {border:1px solid CanvasText;}
+  .example-chip[aria-pressed="true"],.demo-switch [aria-pressed="true"] {outline:2px solid Highlight;}
+}
