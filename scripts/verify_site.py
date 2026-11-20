@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import struct
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
@@ -60,8 +61,37 @@ def verify():
     assert 'main' in page.tags and 'nav' in page.tags and 'footer' in page.tags, 'Semantic layout missing'
     assert any(m.get('name') == 'description' and len(m.get('content', '')) > 90 for m in page.meta), 'Meta description missing'
     assert f'href="{EXPECTED}"' in html, 'Canonical URL mismatch'
-    assert any(m.get('property') == 'og:image' for m in page.meta), 'Open Graph image missing'
-    assert any(m.get('name') == 'twitter:card' for m in page.meta), 'Twitter card missing'
+    # Social previews must work for non-JavaScript crawlers and must reference a real raster asset.
+    def unique_meta(key, value):
+        matches = [tag.get('content') for tag in page.meta if tag.get(key) == value]
+        assert len(matches) == 1 and matches[0], f'Expected one nonempty {value} metadata tag'
+        return matches[0]
+
+    og_title = unique_meta('property', 'og:title')
+    og_description = unique_meta('property', 'og:description')
+    og_url = unique_meta('property', 'og:url')
+    og_image = unique_meta('property', 'og:image')
+    assert 'ASD-STE100' in og_title and 'Simplified Technical English' in og_title
+    assert len(og_description) >= 90 and og_url == EXPECTED
+    assert unique_meta('property', 'og:type') == 'website'
+    assert unique_meta('property', 'og:locale') == 'en_US'
+    assert unique_meta('property', 'og:image:secure_url') == og_image
+    assert unique_meta('property', 'og:image:type') == 'image/png'
+    assert unique_meta('property', 'og:image:width') == '1200'
+    assert unique_meta('property', 'og:image:height') == '630'
+    assert len(unique_meta('property', 'og:image:alt')) > 20
+    assert unique_meta('name', 'twitter:card') == 'summary_large_image'
+    assert unique_meta('name', 'twitter:image') == og_image
+    assert len(unique_meta('name', 'twitter:image:alt')) > 20
+    assert unique_meta('name', 'twitter:title') and unique_meta('name', 'twitter:description')
+    assert og_image.startswith(EXPECTED + 'assets/'), 'OG image must use the canonical absolute URL'
+    image_path = SITE / og_image.removeprefix(EXPECTED)
+    assert image_path.is_file(), f'OG image does not exist: {image_path}'
+    with image_path.open('rb') as f:
+        header = f.read(24)
+    assert header[:8] == b'\x89PNG\r\n\x1a\n', 'OG image is not a PNG'
+    assert struct.unpack('>II', header[16:24]) == (1200, 630), 'OG image dimensions mismatch'
+    assert image_path.stat().st_size < 1_000_000, 'OG image must stay under 1 MB for GitHub social preview upload'
     assert 'application/ld+json' in html, 'JSON-LD missing'
     obj = re.search(r'<script type="application/ld\+json">(.*?)</script>', html, re.S)
     assert obj, 'JSON-LD block missing'; data = json.loads(obj.group(1)); assert data['@type'] == 'SoftwareSourceCode'
@@ -76,7 +106,6 @@ def verify():
     assert (SITE / '.nojekyll').is_file()
     assert 'Sitemap: ' + EXPECTED + 'sitemap.xml' in (SITE / 'robots.txt').read_text()
     assert '<loc>' + EXPECTED + '</loc>' in (SITE / 'sitemap.xml').read_text()
-    assert (SITE / 'assets/social-preview.png').stat().st_size > 2000
     assert 'aria-label="Copy installation command"' in html
     assert html.count('<section ') == 4, 'Keep the landing page concise'
     assert html.count('data-example=') == 6, 'Six scenario chips expected'
@@ -119,7 +148,7 @@ def verify():
         return (high+.05)/(low+.05)
     pairs = [('#426d70','#f2f6f4'),('#466a6f','#f2f6f4'),('#c4e0e1','#0a2934'),('#315f63','#eaf5f1'),('#a9bcb2','#091015')]
     assert all(contrast(fg,bg)>=4.5 for fg,bg in pairs), 'Small-text color contrast must be >= 4.5:1'
-    print(f'PASS: SEO, metadata, local assets, semantic structure, JSON-LD, anchors and installation command ({len(page.links)} links checked)')
+    print(f'PASS: SEO, OG/Twitter cards, 1200x630 PNG, local assets, semantic structure, JSON-LD, anchors and installation command ({len(page.links)} links checked)')
 
 
 if __name__ == '__main__':

@@ -10,8 +10,17 @@ https://iamaamir.github.io/asd-ste100-skill/
 - `assets/styles.css`: responsive editorial design and CSS motion with reduced-motion support.
 - `assets/app.js`: an intentionally limited in-browser structural-check demonstration. It does not fetch any network resources or represent the Python checker.
 - `assets/hero-grid.svg` and `assets/favicon.svg`: resolution-independent decorative/brand assets.
-- `assets/social-preview.png`: 1200×630 social preview (generated specifically for the project).
+- `assets/ste100-social-card.png`: 1200×630 Open Graph and Twitter Card preview; teal visual identity, PNG served directly by GitHub Pages.
 - `robots.txt` and `sitemap.xml`: crawler discovery and index instructions.
+
+## Social sharing previews
+
+The public landing-page URL and the GitHub repository URL have **separate previews**:
+
+- **Landing page** (`https://iamaamir.github.io/asd-ste100-skill/`): static `og:*` and `twitter:*` tags in `index.html`, pointing to the 1200×630 PNG at [`assets/ste100-social-card.png`](assets/ste100-social-card.png). The image URL is absolute HTTPS and does not depend on JavaScript. The file name changes when we materially update the image to help invalidate stale platform caches.
+- **GitHub repository** (`https://github.com/iamaamir/asd-ste100-skill`): GitHub controls its own share image. The maintainer must upload the same PNG in **Repository Settings → General → Social preview → Edit**. This action cannot be performed through the repository-file GitHub API, and committing an image does not automatically update that GitHub setting.
+
+After deployment, run `python3 scripts/check_social_cards.py` from an internet-connected environment to check that an unauthenticated social crawler can read the HTML tags and download the advertised image. The GitHub Pages workflow runs the same check after deployment. Third-party platforms may retain cached previews; use their URL inspection tools to refresh the cache where supported. Search or social preview display is not guaranteed.
 
 ## Run locally
 
@@ -27,6 +36,7 @@ Visit http://localhost:8000. No `npm install`, bundler, or third-party runtime p
 
 ```sh
 python3 scripts/verify_site.py
+python3 scripts/check_social_cards.py  # Requires network and a deployed site
 python3 skills/ste-technical-writing/scripts/verify_skill.py
 ```
 
