@@ -30,7 +30,7 @@ python3 scripts/verify_site.py
 python3 skills/ste-technical-writing/scripts/verify_skill.py
 ```
 
-The first checks HTML semantics, internal links, mandatory SEO metadata, schema, and expected assets. The second checks the installed skill and its regression suite. GitHub Actions runs both.
+The first checks HTML semantics, internal links, mandatory SEO metadata, schema, copy boundaries, and expected assets. The second checks the installed skill and its regression suite. GitHub Actions runs both.
 
 ## Deployment
 
@@ -53,9 +53,9 @@ The project is not officially affiliated with or endorsed by ASD/STEMG. Preserve
 
 ## Landing page information architecture
 
-The main page intentionally has just four sections: hero, circular review-loop explanation, inline-highlight playground, and install. Two concise evidence figures appear below the workflow; human review limitations appear in the demo disclosure and a small note after install. Python CI version coverage belongs in Actions, not as a visitor-facing metric.
+The main page intentionally has just four sections: hero, three-stage review process, writing playground, and install. Two concise evidence figures appear below the workflow; human review limitations appear in the demo disclosure and a small note after install. Python CI version coverage belongs in Actions, not as a visitor-facing metric.
 
-The playground is educational. It is **not** a port of the Python checker: its only checks are approximate sentence length, literal semicolons, and common contractions. It runs entirely in the browser and must never be presented as a compliance validator. Its mirrored textarea marks affected ranges; placing the caret on a marked region opens an inline tooltip, like a lightweight editor diagnostic. The pure rules and six example fixtures live in `docs/assets/preview-core.js` and are tested without dependencies via `node --test scripts/preview.test.cjs`.
+The playground is educational. It is **not** a port of the Python checker: its only checks are approximate sentence length, literal semicolons, and common contractions. It runs entirely in the browser and must never be presented as a compliance validator. Its mirrored textarea marks affected ranges; hovering a marked region or placing the caret within it opens a contextual explanation without leaving the editor. The pure rules and six example fixtures live in `docs/assets/preview-core.js` and are tested without dependencies via `node --test scripts/preview.test.cjs`.
 
 Run site and demo checks with:
 

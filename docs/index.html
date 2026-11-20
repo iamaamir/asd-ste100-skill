@@ -108,44 +108,42 @@
 
     <section class="process section-space" id="how-it-works" aria-labelledby="process-title">
       <div class="wrap">
-        <div class="section-head process-head"><div><div class="section-index process-index"><span class="line"></span><span>01 / HOW IT WORKS</span></div><h2 id="process-title">A review loop.<br><em>Not a one-way pipe.</em></h2></div><p>This skill works best as an iterative review cycle: start from the document, guide the agent with the STE rules, then let a human confirm wording, terminology, safety, and meaning before the text is accepted.</p></div>
-        <div class="orbit-system" role="img" aria-label="Circular three-stage review loop: start with technical text, move to agent-assisted review, then to human approval and back to the document for revision until the wording is clear and safe.">
-          <svg class="orbit-svg" viewBox="0 0 1100 740" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <div class="section-head process-head">
+          <div><div class="section-index"><span class="line"></span><span>01 / THE METHOD</span></div><h2 id="process-title">Clarity is built.<br><em>Not assumed.</em></h2></div>
+          <p>Good technical writing must be easy to follow without changing what the equipment or procedure actually requires. The ASD-STE100 skill helps an agent improve the wording while keeping final decisions with the reviewer.</p>
+        </div>
+        <div class="review-cycle" aria-label="Technical writing review cycle">
+          <svg class="cycle-connections" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
             <defs>
-              <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#2b7f81"/>
-                <stop offset="100%" stop-color="#0f5f66"/>
-              </linearGradient>
+              <marker id="cycle-arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto" markerUnits="strokeWidth"><path d="M1 1 L7 4.5 L1 8" fill="none" stroke="#187b83" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></marker>
             </defs>
-            <circle cx="550" cy="370" r="248" class="orbit-track"></circle>
-            <circle cx="550" cy="370" r="248" class="orbit-animate"></circle>
-            <path class="orbit-arrow arrow-one" d="M312 236c40-56 89-101 148-133"/>
-            <path class="orbit-arrow arrow-two" d="M793 274c-19 64-18 130 2 194"/>
-            <path class="orbit-arrow arrow-three" d="M490 614c-83-13-157-53-216-111"/>
+            <path id="cycle-a" class="cycle-path" d="M415 144 C535 96, 665 96, 785 144" marker-end="url(#cycle-arrow)"/>
+            <path id="cycle-b" class="cycle-path" d="M950 257 C1030 356, 922 451, 818 517" marker-end="url(#cycle-arrow)"/>
+            <path id="cycle-c" class="cycle-path cycle-return" d="M386 565 C205 561, 172 389, 240 260" marker-end="url(#cycle-arrow)"/>
+            <circle r="4" class="cycle-dot"><animateMotion dur="6s" repeatCount="indefinite"><mpath href="#cycle-a"/></animateMotion></circle>
+            <circle r="4" class="cycle-dot"><animateMotion dur="6s" begin="2s" repeatCount="indefinite"><mpath href="#cycle-b"/></animateMotion></circle>
+            <circle r="4" class="cycle-dot"><animateMotion dur="6s" begin="4s" repeatCount="indefinite"><mpath href="#cycle-c"/></animateMotion></circle>
           </svg>
-          <div class="orbit-card orbit-card-input">
-            <span class="orbit-step">01 / INPUT</span>
-            <div class="orbit-icon"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><rect x="10" y="7" width="32" height="38" rx="4" stroke="currentColor" stroke-width="1.7"/><path d="M17 18h18M17 25h18M17 32h11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
-            <h3>Technical text</h3>
-            <p>Start with procedures, maintenance notes, manuals, or system descriptions that need clearer wording.</p>
-          </div>
-          <div class="orbit-card orbit-card-skill">
-            <span class="orbit-step">02 / ASSIST</span>
-            <div class="orbit-icon"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><rect x="12" y="12" width="28" height="28" rx="5" stroke="currentColor" stroke-width="1.7"/><path d="M26 3v9m0 28v9M3 26h9m28 0h9M17 19l6 7 12-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <h3>Skill-guided review</h3>
-            <p>The agent applies rule guidance, terminology prompts, and optional structural checks to suggest cleaner wording.</p>
-          </div>
-          <div class="orbit-card orbit-card-human">
-            <span class="orbit-step">03 / DECIDE</span>
-            <div class="orbit-icon"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><path d="M9 17 26 8l17 9v18l-17 9-17-9V17Z" stroke="currentColor" stroke-width="1.7"/><path d="m17 26 6 6 13-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <h3>Human verification</h3>
-            <p>A reviewer confirms vocabulary, technical accuracy, and safety language — then sends the text back for revision if needed.</p>
-          </div>
-          <div class="orbit-core">
-            <span class="orbit-core-label">ITERATE UNTIL CLEAR</span>
-            <strong>Loop until the wording is clear, correct, and safe.</strong>
-            <p>The skill speeds up review. It does not replace engineering judgment or the official dictionary.</p>
-          </div>
+          <article class="cycle-step cycle-source">
+            <span class="cycle-step-number">01 <span>/ START</span></span>
+            <div class="cycle-step-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><rect x="10" y="6" width="28" height="36" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M17 17h14M17 23h14M17 29h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h3>Start with the source</h3>
+            <p>Add a procedure or system description. Keep part names, measurements, and conditions intact.</p>
+          </article>
+          <article class="cycle-step cycle-agent">
+            <span class="cycle-step-number">02 <span>/ REVIEW</span></span>
+            <div class="cycle-step-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M11 14h26v20H11zM17 24l4 4 10-10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 5v9M24 34v9M4 24h7M37 24h7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h3>Review the wording</h3>
+            <p>The agent applies mapped writing rules and optional structural checks. It flags uncertain terms and wording for review.</p>
+          </article>
+          <article class="cycle-step cycle-reviewer">
+            <span class="cycle-step-number">03 <span>/ VERIFY</span></span>
+            <div class="cycle-step-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M24 5 40 13v22L24 43 8 35V13L24 5Z" stroke="currentColor" stroke-width="1.8"/><path d="m16 24 5 5 11-12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Verify the meaning</h3>
+            <p>A qualified reviewer checks terminology, technical intent, and safety. If anything is unclear, revise and review again.</p>
+          </article>
+          <div class="cycle-return-label" aria-hidden="true"><span>REVISION NEEDED?</span><strong>Return to the source</strong></div>
+          <div class="cycle-outcome"><span class="cycle-outcome-symbol" aria-hidden="true">✓</span><span>When the review is complete, the approved text is ready for its intended use.</span></div>
         </div>
         <div class="proof-ribbon" aria-label="Verified project information">
           <div class="proof-item"><strong>53 <span>/ 53</span></strong><p>Issue 9 writing-rule IDs mapped</p></div>
@@ -157,10 +155,10 @@
 
     <section class="playground section-space" id="playground" aria-labelledby="play-title">
       <div class="wrap">
-        <div class="section-head light-head"><div><div class="section-index"><span class="line"></span><span>02 / TRY IT YOURSELF</span></div><h2 id="play-title">Editor-like feedback.<br><em>Right in the text.</em></h2></div><p>Choose an example or type your own sentence. Underlines and highlights stay inline. Place the caret on a flagged region to see why it is marked.</p></div>
+        <div class="section-head light-head"><div><div class="section-index"><span class="line"></span><span>02 / SEE IT IN ACTION</span></div><h2 id="play-title">See where clarity slips.<br><em>Catch it early.</em></h2></div><p>Choose a sample or write your own instruction. This small preview marks common structural problems and explains what to check next.</p></div>
         <div class="demo-panel demo-panel-inline">
           <div class="demo-main">
-            <div class="demo-header"><span class="demo-eyebrow"><span class="live-dot"></span> LIVE STRUCTURAL PREVIEW <span class="preview-label">· LOCAL ONLY</span></span><div class="demo-switch" role="group" aria-label="Document type"><button type="button" data-mode="procedure" aria-pressed="true">Procedure · 20 words</button><button type="button" data-mode="description" aria-pressed="false">Description · 25 words</button></div></div>
+            <div class="demo-header"><span class="demo-eyebrow"><span class="live-dot"></span> LIVE WRITING PREVIEW <span class="preview-label">· LOCAL ONLY</span></span><div class="demo-switch" role="group" aria-label="Document type"><button type="button" data-mode="procedure" aria-pressed="true">Procedure · 20 words</button><button type="button" data-mode="description" aria-pressed="false">Description · 25 words</button></div></div>
             <div class="examples-heading"><span>TRY AN EXAMPLE</span><span class="examples-hint">SELECT A SCENARIO ↓</span></div>
             <div class="example-chips" role="group" aria-label="Example scenarios">
               <button class="example-chip" type="button" data-example="mixed" aria-pressed="true">All three issues</button>
@@ -174,17 +172,17 @@
             <div class="editor-area" id="editor-area">
               <div class="editor-highlight-layer" aria-hidden="true"><pre id="demo-highlight"></pre></div>
               <textarea id="demo-input" spellcheck="false" rows="5" maxlength="1500" aria-describedby="demo-help demo-live-feedback">Before commencing the inspection of the electrical unit, make sure that the main power supply has been disconnected; don't remove the access panel until this has been completed.</textarea>
-              <div class="issue-tooltip" id="issue-tooltip" hidden>
+              <div class="issue-tooltip" id="issue-tooltip" role="tooltip" hidden>
                 <div class="issue-tooltip-kicker" id="tooltip-code">STRUCTURAL SIGNAL</div>
                 <strong id="tooltip-title">Sentence length</strong>
                 <p id="tooltip-detail">This sentence is too long.</p>
                 <small id="tooltip-advice">Approximate count; consult ASD-STE100 for counting exceptions.</small>
               </div>
             </div>
-            <div class="editor-footer-bar"><p id="demo-help">Place the caret on an underline or highlighted sentence to inspect the issue. Wavy underline = specific pattern · Soft highlight = sentence length</p><span id="word-count">0 approximate words</span></div>
+            <div class="editor-footer-bar"><p id="demo-help">Hover a marked phrase to read the explanation, or place the caret inside it.</p><span id="word-count">0 approximate words</span></div>
             <div class="editor-bottom-meta">
-              <span class="meta-pill"><span class="meta-dot"></span><span id="result-number">03</span> inline findings</span>
-              <span class="meta-note" id="result-subtitle">Tap or place the caret on a marked region to inspect it.</span>
+              <span class="meta-pill"><span class="meta-dot"></span><span id="result-number">03</span> <span id="result-label">issues</span></span>
+              <span class="meta-note" id="result-subtitle">Hover or focus a highlighted phrase for details.</span>
               <button id="reset-example" type="button" class="reset-btn"><span aria-hidden="true">↺</span> Reset example</button>
             </div>
             <div id="demo-live-feedback" class="visually-hidden" role="status" aria-live="polite"></div>

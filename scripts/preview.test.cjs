@@ -57,3 +57,10 @@ test('hyphenated words are approximately counted as one',()=>{
 test('unknown mode is rejected',()=>{
   assert.throws(()=>findIssues('x','foobar'),TypeError);
 });
+
+test('contraction hover guidance offers a full form without claiming compliance',()=>{
+  const issue=findIssues("Don't open the panel.",'procedure')[0];
+  assert.equal(issue.kind,'contraction');
+  assert.match(issue.advice,/do not/);
+  assert.match(issue.advice,/Check the full sentence/);
+});

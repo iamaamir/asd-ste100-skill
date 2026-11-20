@@ -73,7 +73,13 @@ def verify():
     assert html.count('data-example=') == 6, 'Six scenario chips expected'
     assert 'id="demo-highlight"' in html and 'id="issue-tooltip"' in html, 'Inline diagnostics missing'
     assert 'CI ENVIRONMENTS' not in html, 'Do not market Python CI environments'
-    assert 'Loop until the wording is clear, correct, and safe.' in html, 'Circular review-loop copy missing'
+    assert 'class="review-cycle"' in html and 'id="cycle-a"' in html, 'Connected review-cycle diagram missing'
+    assert 'A review loop.' not in html and 'Editor-like feedback.' not in html and 'inline findings' not in html and 'Not a one-way pipe.' not in html, 'Design discussion language leaked into landing-page copy'
+    assert 'role="tooltip"' in html, 'Accessible diagnostic tooltip missing'
+    interaction = (SITE / 'assets/app.js').read_text()
+    styles = (SITE / 'assets/styles.css').read_text()
+    assert "pointerover" in interaction and "data-diagnostic" in interaction, 'Hoverable issue marks missing'
+    assert re.search(r"mark\[data-diagnostic\]\s*\{\s*pointer-events:\s*auto", styles), 'Marks must receive hover events'
     assert any(a.get('src','').endswith('preview-core.js') for a in page.scripts), 'Preview core script missing'
     assert 'not the full python checker' in html.lower(), 'Demo limitations must be visible'
     assert 'npx skills add iamaamir/asd-ste100-skill --skill ste-technical-writing' in html

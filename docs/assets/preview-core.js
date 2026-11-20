@@ -10,6 +10,13 @@
     clear: {mode: 'procedure', text: 'Disconnect the power supply. Remove the access panel. Examine the connector.'}
   };
   const contractionRE = /\b(?:don't|doesn't|can't|won't|isn't|aren't|wasn't|weren't|shouldn't|wouldn't|couldn't|mustn't|didn't|hasn't|haven't|hadn't|it's|that's|there's|we're|you're|they're|i've|we've|we'll|you'll|they'll)\b/gi;
+  const contractions = Object.freeze({
+    "don't": 'do not', "doesn't": 'does not', "can't": 'cannot', "won't": 'will not',
+    "isn't": 'is not', "aren't": 'are not', "wasn't": 'was not', "weren't": 'were not',
+    "shouldn't": 'should not', "wouldn't": 'would not', "couldn't": 'could not',
+    "mustn't": 'must not', "didn't": 'did not', "hasn't": 'has not',
+    "haven't": 'have not', "hadn't": 'had not'
+  });
   const wordRE = /[\p{L}\p{N}]+(?:[-'’][\p{L}\p{N}]+)*/gu;
   const wordCount = text => (text.match(wordRE) || []).length;
   function findIssues(text, mode) {
@@ -28,7 +35,9 @@
       issues.push({kind:'punct',start:i,end:i+1,label:'Semicolon',code:'PUNCTUATION',detail:'A semicolon appears here. Use separate sentences or another suitable construction.',advice:'Check that the revised text preserves the relationship between the actions.'});
     }
     for(const match of text.matchAll(contractionRE)) {
-      issues.push({kind:'contraction',start:match.index,end:match.index+match[0].length,label:'Contraction',code:'WORD FORM',detail:`“${match[0]}” is a contraction. Write the full form.`,advice:'Verify the replacement against the official dictionary and the intended meaning.'});
+      const expansion = contractions[match[0].toLowerCase()];
+      const advice = expansion ? `Suggested wording: “${expansion}”. Check the full sentence for the intended meaning.` : 'Write out the full form, then verify the meaning and approved vocabulary.';
+      issues.push({kind:'contraction',start:match.index,end:match.index+match[0].length,label:'Contraction',code:'WORD FORM',detail:`“${match[0]}” is a contraction. Controlled technical writing uses the full form.`,advice});
     }
     return issues.sort((a,b)=>a.start-b.start||a.end-b.end);
   }
