@@ -108,12 +108,44 @@
 
     <section class="process section-space" id="how-it-works" aria-labelledby="process-title">
       <div class="wrap">
-        <div class="section-head"><div><div class="section-index"><span class="line"></span><span>01 / HOW IT WORKS</span></div><h2 id="process-title">From dense text<br><em>to clear actions.</em></h2></div><p>ASD-STE100 Simplified Technical English is a controlled language for technical documentation. This portable skill helps agents draft and review clearer instructions, without hiding uncertainty.</p></div>
-        <div class="process-graphic" role="img" aria-label="Three-stage workflow: supply technical text; the agent applies rule guidance and a lightweight structural checker; a reviewer checks terminology, safety and meaning before approval.">
-          <svg class="pipeline-path" viewBox="0 0 1100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M8 50H1090" stroke="#41554e" stroke-width="1.5" stroke-dasharray="4 8"/><path class="pipeline-moving" d="M8 50H1090" stroke="#d7ff86" stroke-width="2" stroke-dasharray="24 180" stroke-linecap="round"/></svg>
-          <div class="stage stage-input"><span class="stage-label">INPUT / 01</span><div class="stage-icon"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><rect x="10" y="7" width="32" height="38" rx="4" stroke="currentColor" stroke-width="1.7"/><path d="M17 18h18M17 25h18M17 32h11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div><h3>Your technical text</h3><p>Procedures, manuals, system descriptions, and maintenance instructions.</p></div>
-          <div class="stage stage-process"><span class="stage-label">ASSIST / 02</span><div class="stage-icon"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><rect x="12" y="12" width="28" height="28" rx="5" stroke="currentColor" stroke-width="1.7"/><path d="M26 3v9m0 28v9M3 26h9m28 0h9M17 19l6 7 12-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Guided agent review</h3><p>53 mapped rule IDs, terminology prompts, and optional Python structural checks.</p></div>
-          <div class="stage stage-output"><span class="stage-label">DECIDE / 03</span><div class="stage-icon"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><path d="M9 17 26 8l17 9v18l-17 9-17-9V17Z" stroke="currentColor" stroke-width="1.7"/><path d="m17 26 6 6 13-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Human-approved result</h3><p>Rewrite suggestions, flagged findings, and explicit dictionary or safety review gaps.</p></div>
+        <div class="section-head process-head"><div><div class="section-index process-index"><span class="line"></span><span>01 / HOW IT WORKS</span></div><h2 id="process-title">A review loop.<br><em>Not a one-way pipe.</em></h2></div><p>This skill works best as an iterative review cycle: start from the document, guide the agent with the STE rules, then let a human confirm wording, terminology, safety, and meaning before the text is accepted.</p></div>
+        <div class="orbit-system" role="img" aria-label="Circular three-stage review loop: start with technical text, move to agent-assisted review, then to human approval and back to the document for revision until the wording is clear and safe.">
+          <svg class="orbit-svg" viewBox="0 0 1100 740" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+              <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#2b7f81"/>
+                <stop offset="100%" stop-color="#0f5f66"/>
+              </linearGradient>
+            </defs>
+            <circle cx="550" cy="370" r="248" class="orbit-track"></circle>
+            <circle cx="550" cy="370" r="248" class="orbit-animate"></circle>
+            <path class="orbit-arrow arrow-one" d="M312 236c40-56 89-101 148-133"/>
+            <path class="orbit-arrow arrow-two" d="M793 274c-19 64-18 130 2 194"/>
+            <path class="orbit-arrow arrow-three" d="M490 614c-83-13-157-53-216-111"/>
+          </svg>
+          <div class="orbit-card orbit-card-input">
+            <span class="orbit-step">01 / INPUT</span>
+            <div class="orbit-icon"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><rect x="10" y="7" width="32" height="38" rx="4" stroke="currentColor" stroke-width="1.7"/><path d="M17 18h18M17 25h18M17 32h11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+            <h3>Technical text</h3>
+            <p>Start with procedures, maintenance notes, manuals, or system descriptions that need clearer wording.</p>
+          </div>
+          <div class="orbit-card orbit-card-skill">
+            <span class="orbit-step">02 / ASSIST</span>
+            <div class="orbit-icon"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><rect x="12" y="12" width="28" height="28" rx="5" stroke="currentColor" stroke-width="1.7"/><path d="M26 3v9m0 28v9M3 26h9m28 0h9M17 19l6 7 12-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Skill-guided review</h3>
+            <p>The agent applies rule guidance, terminology prompts, and optional structural checks to suggest cleaner wording.</p>
+          </div>
+          <div class="orbit-card orbit-card-human">
+            <span class="orbit-step">03 / DECIDE</span>
+            <div class="orbit-icon"><svg viewBox="0 0 52 52" fill="none" aria-hidden="true"><path d="M9 17 26 8l17 9v18l-17 9-17-9V17Z" stroke="currentColor" stroke-width="1.7"/><path d="m17 26 6 6 13-13" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Human verification</h3>
+            <p>A reviewer confirms vocabulary, technical accuracy, and safety language — then sends the text back for revision if needed.</p>
+          </div>
+          <div class="orbit-core">
+            <span class="orbit-core-label">ITERATE UNTIL CLEAR</span>
+            <strong>Loop until the wording is clear, correct, and safe.</strong>
+            <p>The skill speeds up review. It does not replace engineering judgment or the official dictionary.</p>
+          </div>
         </div>
         <div class="proof-ribbon" aria-label="Verified project information">
           <div class="proof-item"><strong>53 <span>/ 53</span></strong><p>Issue 9 writing-rule IDs mapped</p></div>
@@ -125,7 +157,7 @@
 
     <section class="playground section-space" id="playground" aria-labelledby="play-title">
       <div class="wrap">
-        <div class="section-head light-head"><div><div class="section-index"><span class="line"></span><span>02 / TRY IT YOURSELF</span></div><h2 id="play-title">Don't just read it.<br><em>Try breaking it.</em></h2></div><p>Choose an example or type your own sentence. See which words trigger a structural review — in context, right where you wrote them.</p></div>
+        <div class="section-head light-head"><div><div class="section-index"><span class="line"></span><span>02 / TRY IT YOURSELF</span></div><h2 id="play-title">Editor-like feedback.<br><em>Right in the text.</em></h2></div><p>Choose an example or type your own sentence. Underlines and highlights stay inline. Place the caret on a flagged region to see why it is marked.</p></div>
         <div class="demo-panel demo-panel-inline">
           <div class="demo-main">
             <div class="demo-header"><span class="demo-eyebrow"><span class="live-dot"></span> LIVE STRUCTURAL PREVIEW <span class="preview-label">· LOCAL ONLY</span></span><div class="demo-switch" role="group" aria-label="Document type"><button type="button" data-mode="procedure" aria-pressed="true">Procedure · 20 words</button><button type="button" data-mode="description" aria-pressed="false">Description · 25 words</button></div></div>
@@ -142,12 +174,20 @@
             <div class="editor-area" id="editor-area">
               <div class="editor-highlight-layer" aria-hidden="true"><pre id="demo-highlight"></pre></div>
               <textarea id="demo-input" spellcheck="false" rows="5" maxlength="1500" aria-describedby="demo-help demo-live-feedback">Before commencing the inspection of the electrical unit, make sure that the main power supply has been disconnected; don't remove the access panel until this has been completed.</textarea>
+              <div class="issue-tooltip" id="issue-tooltip" hidden>
+                <div class="issue-tooltip-kicker" id="tooltip-code">STRUCTURAL SIGNAL</div>
+                <strong id="tooltip-title">Sentence length</strong>
+                <p id="tooltip-detail">This sentence is too long.</p>
+                <small id="tooltip-advice">Approximate count; consult ASD-STE100 for counting exceptions.</small>
+              </div>
             </div>
-            <div class="editor-footer-bar"><p id="demo-help">Wavy underline = specific pattern · Soft highlight = sentence length</p><span id="word-count">0 approximate words</span></div>
-            <div class="diagnostics-head"><div><span class="diagnostics-icon" aria-hidden="true">✳</span><h3>Review signals</h3><span id="result-number" class="issue-total" aria-label="Number of findings">0</span></div><button id="reset-example" type="button" class="reset-btn"><span aria-hidden="true">↺</span> Reset</button></div>
-            <p id="result-subtitle" class="diagnostics-subtitle">Select a finding to locate it in the editor.</p>
+            <div class="editor-footer-bar"><p id="demo-help">Place the caret on an underline or highlighted sentence to inspect the issue. Wavy underline = specific pattern · Soft highlight = sentence length</p><span id="word-count">0 approximate words</span></div>
+            <div class="editor-bottom-meta">
+              <span class="meta-pill"><span class="meta-dot"></span><span id="result-number">03</span> inline findings</span>
+              <span class="meta-note" id="result-subtitle">Tap or place the caret on a marked region to inspect it.</span>
+              <button id="reset-example" type="button" class="reset-btn"><span aria-hidden="true">↺</span> Reset example</button>
+            </div>
             <div id="demo-live-feedback" class="visually-hidden" role="status" aria-live="polite"></div>
-            <ul class="inline-issues" id="issue-list"><li class="no-issues">Analyzing example…</li></ul>
           </div>
         </div>
         <div class="demo-underbar"><span><strong>ABOUT THIS DEMO</strong> It checks only approximate sentence length, semicolons, and common contractions — not the full Python checker, official dictionary, or safety correctness. No text leaves your browser.</span><a href="https://github.com/iamaamir/asd-ste100-skill/blob/main/skills/ste-technical-writing/scripts/ste_check.py" target="_blank" rel="noopener noreferrer">See the Python checker <span aria-hidden="true">↗</span></a></div>
