@@ -1,5 +1,7 @@
 # ASD-STE100 Simplified Technical English — Agent Skill
 
+[**Explore the interactive landing page and live example →**](https://iamaamir.github.io/asd-ste100-skill/)
+
 **An agent skill for clear, consistent technical writing.** Draft, rewrite, and review procedures, maintenance instructions, product documentation, safety notices, and software documentation using guidance from **ASD-STE100 Simplified Technical English (STE), Issue 9 (2025)**.
 
 A portable [Agent Skills](https://agentskills.io/) package for Pi, Codex, Claude Code, and other compatible coding agents. It contains an **offline Python structural checker**, all **53 writing-rule identifiers** with concise operational guidance, a terminology-review workflow, and regression tests.
