@@ -212,4 +212,46 @@
     targets.forEach(el=>{el.classList.add('reveal');observer.observe(el);});
     document.documentElement.classList.add('js-enhanced');
   }
+
+  // Native stacked-page scrolling: pin a chapter until the next chapter
+  // covers it. Long chapters use a negative sticky offset so their entire
+  // contents scroll past before the next chapter overlays them.
+  const chapters=[...document.querySelectorAll('.stack-chapter')];
+  if(chapters.length>1){
+    const prefersReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame=0;
+    function measureChapters(){
+      const viewportHeight=window.innerHeight;
+      for(const chapter of chapters){
+        const excess=Math.max(0,chapter.offsetHeight-viewportHeight);
+        chapter.style.setProperty('--stack-top',`${-excess}px`);
+      }
+      updateStackDepth();
+    }
+    function updateStackDepth(){
+      const viewportHeight=window.innerHeight;
+      for(let index=0;index<chapters.length;index++){
+        const chapter=chapters[index];
+        const top=index<chapters.length-1 ? chapters[index+1].getBoundingClientRect().top : viewportHeight;
+        const progress=prefersReducedMotion.matches ? 0 : Math.max(0,Math.min(1,(viewportHeight-top)/viewportHeight));
+        chapter.style.setProperty('--stack-scale',(1-progress*0.045).toFixed(4));
+        chapter.style.setProperty('--stack-lift',`${Math.round(-progress*28)}px`);
+        chapter.style.setProperty('--stack-opacity',(1-progress*0.13).toFixed(3));
+      }
+    }
+    function scheduleDepthUpdate(){
+      if(frame)return;
+      frame=requestAnimationFrame(()=>{frame=0;updateStackDepth();});
+    }
+    window.addEventListener('scroll',scheduleDepthUpdate,{passive:true});
+    window.addEventListener('resize',measureChapters,{passive:true});
+    if('ResizeObserver' in window){
+      const observer=new ResizeObserver(measureChapters);
+      chapters.forEach(chapter=>observer.observe(chapter));
+    }
+    if(prefersReducedMotion.addEventListener)prefersReducedMotion.addEventListener('change',measureChapters);
+    if(document.fonts?.ready)document.fonts.ready.then(measureChapters);
+    measureChapters();
+  }
+
 })();

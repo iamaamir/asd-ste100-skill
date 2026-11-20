@@ -76,11 +76,16 @@ def verify():
     assert 'class="review-cycle"' in html and 'id="cycle-a"' in html, 'Connected review-cycle diagram missing'
     assert 'A review loop.' not in html and 'Editor-like feedback.' not in html and 'inline findings' not in html and 'Not a one-way pipe.' not in html, 'Design discussion language leaked into landing-page copy'
     assert 'role="tooltip"' in html, 'Accessible diagnostic tooltip missing'
+    assert html.count('stack-chapter') == 4, 'All four main chapters must be stacked'
+
     interaction = (SITE / 'assets/app.js').read_text()
     styles = (SITE / 'assets/styles.css').read_text()
     assert "pointerover" in interaction and "data-diagnostic" in interaction, 'Hoverable issue marks missing'
     assert re.search(r"mark\[data-diagnostic\]\s*\{\s*pointer-events:\s*auto", styles), 'Marks must receive hover events'
     assert any(a.get('src','').endswith('preview-core.js') for a in page.scripts), 'Preview core script missing'
+    assert 'position:sticky' in styles and '--stack-top' in styles, 'Sticky stacking and dynamic top offset missing'
+    assert 'measureChapters' in interaction and 'updateStackDepth' in interaction, 'Stack depth and tall-content logic missing'
+    assert 'ste-install-float' in styles and 'prefers-reduced-motion:reduce' in styles, 'Floating art and reduced-motion fallback missing'
     assert 'not the full python checker' in html.lower(), 'Demo limitations must be visible'
     assert 'npx skills add iamaamir/asd-ste100-skill --skill ste-technical-writing' in html
     print(f'PASS: SEO, metadata, local assets, semantic structure, JSON-LD, anchors and installation command ({len(page.links)} links checked)')

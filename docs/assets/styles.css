@@ -303,10 +303,6 @@ svg{display:block}strong{font-weight:650}.wrap{width:min(calc(100% - 76px),var(-
 }
 .install-section .art-bottom {font-size:9px}
 .trust-footnote,.site-footer {position:relative;z-index:12}
-/* Page chapters use layered native scrolling, not sticky positioning. */
-@media(max-width:1023px), (max-height:779px), (prefers-reduced-motion:reduce) {
-  .stack-chapter {position:relative;top:auto;min-height:auto}
-}
 @media(max-width:900px) {
   .install-wrap {grid-template-columns:minmax(0,1.1fr) minmax(220px,.9fr);gap:26px}
   .install-section h2 {font-size:clamp(43px,5.9vw,62px)}
@@ -322,34 +318,60 @@ svg{display:block}strong{font-weight:650}.wrap{width:min(calc(100% - 76px),var(-
   .install-section .terminal-command code {font-size:11px}
 }
 
-/* Layered chapter transitions. Do not pin chapters taller than the viewport:
-   it hides their anchor targets when the reader scrolls backwards. */
-@media (min-width:1024px) and (min-height:780px) and (prefers-reduced-motion:no-preference) {
-  .stack-chapter {
-    position:relative;
-    top:auto;
-    min-height:calc(100svh - 88px);
-  }
-  .stack-chapter:not(.stack-hero) {
-    margin-top:-52px;
-    box-shadow:0 -22px 60px rgba(1,15,20,.23);
-    border-radius:22px 22px 0 0;
-  }
-  .stack-hero {padding-bottom:90px}
-  .stack-process {padding-bottom:142px}
-  .stack-playground {padding-bottom:152px}
-  .stack-install {padding-bottom:clamp(88px,10vh,145px)}
+/* Stacked chapters: later full-bleed panels cover earlier pinned panels.
+   --stack-top is set to a negative value when a chapter is taller than the
+   viewport, allowing all of its content to scroll into view before it pins. */
+.site-shell { overflow:clip; }
+main { isolation:isolate; }
+@supports not (height: 100svh) { .stack-chapter { min-height:100vh; } }
+.stack-chapter {
+  position:sticky;
+  top:var(--stack-top,0px);
+  width:100%;
+  min-height:100svh;
+  margin:0;
+  border-radius:0;
+  overflow:clip;
+  isolation:isolate;
+  box-shadow:0 -18px 44px rgba(0,18,24,.15);
 }
-@media (prefers-reduced-motion:no-preference) {
-  @supports (animation-timeline: view()) {
-    @keyframes ste-art-scroll {
-      from {transform:translateY(14px) rotate(-6deg)}
-      to {transform:translateY(-10px) rotate(-3deg)}
-    }
-    .install-art-inner {
-      animation:ste-art-scroll linear both;
-      animation-timeline:view();
-      animation-range:entry 0% exit 100%;
-    }
-  }
+.stack-hero {z-index:1;box-shadow:none}
+.stack-process {z-index:2}
+.stack-playground {z-index:3}
+.stack-install {z-index:4}
+.stack-chapter:not(.stack-hero) {margin-top:0;border-radius:24px 24px 0 0}
+.stack-chapter > .wrap {
+  transform:translate3d(0,var(--stack-lift,0px),0) scale(var(--stack-scale,1));
+  transform-origin:50% 26%;
+  opacity:var(--stack-opacity,1);
+  will-change:transform,opacity;
 }
+.stack-install {
+  display:flex;
+  align-items:center;
+  padding-block:clamp(80px,9vh,140px);
+}
+.stack-install > .wrap {flex:1}
+/* Respect reading order on narrow/tall chapters: measurements in app.js
+   prevent the sticky position from concealing content below the fold. */
+.install-section .install-art-inner {
+  animation:ste-install-float 8s ease-in-out infinite alternate;
+  transform-origin:50% 52%;
+  will-change:transform;
+}
+@keyframes ste-install-float {
+  from {transform:translate3d(0,5px,0) rotate(-4.5deg)}
+  to {transform:translate3d(0,-11px,0) rotate(-2.8deg)}
+}
+@media (max-width:900px) {
+  .stack-chapter:not(.stack-hero) {border-radius:16px 16px 0 0}
+  .stack-install {display:block;padding-block:clamp(68px,10vh,96px)}
+}
+@media (prefers-reduced-motion:reduce) {
+  html {scroll-behavior:auto}
+  .stack-chapter {position:relative;top:auto;min-height:100svh;box-shadow:none}
+  .stack-chapter > .wrap {transform:none!important;will-change:auto}
+  .install-section .install-art-inner {animation:none;transform:rotate(-4deg);will-change:auto}
+}
+html {scroll-padding-top:0}
+.install-section .install-art-inner {animation-timeline:auto}

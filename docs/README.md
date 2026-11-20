@@ -66,4 +66,8 @@ node --test scripts/preview.test.cjs
 
 ## Scroll treatment and visual system
 
-Desktop layouts with enough height use native CSS `position: sticky` to layer the four sections as the visitor scrolls. The page does not trap scrolling, snap between chapters, or depend on JavaScript scroll handlers. Sections use `min-height`, not fixed height, so content remains in document flow. On tablets, mobile screens, shorter viewports, and reduced-motion preferences, the page displays a natural vertical layout without the sticky effect. The install section uses a deep teal palette consistent with the workflow illustration rather than the former neon-green block.
+The four full-bleed chapters use **native CSS `position: sticky`** to create a stacked scroll experience: each new chapter slides over the chapter before it. The layout always uses `min-height: 100svh`, not a fixed height, so chapters with longer text can grow without truncation. JavaScript measures each chapter's overflow and applies a negative sticky offset when needed; readers scroll through all of a tall chapter before it pins. Scroll events update a restrained scale/vertical-offset treatment on the section behind the incoming one; no wheel interception, forced scroll snapping, or animation-dependent navigation occurs.
+
+The installation illustration floats gently using CSS animation and stays still when the visitor requests reduced motion. The reduced-motion version also disables the stacked pinning and keeps all content in normal reading order. The teal installation panel matches the workflow illustration and remains full width at every breakpoint.
+
+In addition to the normal checks, inspect this behavior in a browser at desktop, tablet, and phone widths. Verify both scroll directions, the hero's playground link, focus and hover in the interactive example, the footer, and reduced-motion settings. In a long chapter, the final lines must remain reachable before the next panel overlays them.
