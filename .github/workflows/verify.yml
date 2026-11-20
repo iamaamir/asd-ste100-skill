@@ -22,3 +22,5 @@ jobs:
           python -m py_compile skills/ste-technical-writing/scripts/*.py skills/ste-technical-writing/tests/*.py
       - name: Verify skill and run tests
         run: python skills/ste-technical-writing/scripts/verify_skill.py
+      - name: Verify landing page SEO and internal links
+        run: python3 scripts/verify_site.py
