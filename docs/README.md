@@ -63,3 +63,7 @@ Run site and demo checks with:
 python3 scripts/verify_site.py
 node --test scripts/preview.test.cjs
 ```
+
+## Scroll treatment and visual system
+
+Desktop layouts with enough height use native CSS `position: sticky` to layer the four sections as the visitor scrolls. The page does not trap scrolling, snap between chapters, or depend on JavaScript scroll handlers. Sections use `min-height`, not fixed height, so content remains in document flow. On tablets, mobile screens, shorter viewports, and reduced-motion preferences, the page displays a natural vertical layout without the sticky effect. The install section uses a deep teal palette consistent with the workflow illustration rather than the former neon-green block.
