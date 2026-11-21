@@ -6,7 +6,7 @@ This project is maintained at https://github.com/iamaamir/asd-ste100-skill and i
 
 Important limitations: This is not an official publication, certified STE checker, or guarantee of ASD-STE100 compliance. The copyrighted official dictionary is not included. Approved vocabulary, meanings, technical correctness, and safety-critical wording require checking the official standard and appropriate human review. The browser demo checks only approximate sentence length, semicolons, and common contractions.
 
-Install with the Agent Skills CLI:
+Install:
 `npx skills add iamaamir/asd-ste100-skill --skill ste-technical-writing`
 
 ## Start here

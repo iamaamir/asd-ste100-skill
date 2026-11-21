@@ -1,6 +1,6 @@
 # ste-technical-writing
 
-An independent, portable Agent Skills skill for drafting and reviewing technical documents with the *ASD-STE100 Simplified Technical English*, Issue 9 (2025-01-15), as a reference. No dictionary is bundled. **This is not an ASD/STEMG-authorized or certified checking tool.**
+An independent, portable skill for drafting and reviewing technical documents with the *ASD-STE100 Simplified Technical English*, Issue 9 (2025-01-15), as a reference. No dictionary is bundled. **This is not an ASD/STEMG-authorized or certified checking tool.**
 
 ## Contents
 

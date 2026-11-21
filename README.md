@@ -4,7 +4,7 @@
 
 **An agent skill for clear, consistent technical writing.** Draft, rewrite, and review procedures, maintenance instructions, product documentation, safety notices, and software documentation using guidance from **ASD-STE100 Simplified Technical English (STE), Issue 9 (2025)**.
 
-A portable [Agent Skills](https://agentskills.io/) package for Pi, Codex, Claude Code, and other compatible coding agents. It contains an **offline Python structural checker**, all **53 writing-rule identifiers** with concise operational guidance, a terminology-review workflow, and regression tests.
+Works with Pi, Codex, Claude Code, and other compatible coding agents. Includes an **offline Python structural checker**, all **53 writing-rule identifiers** with concise guidance, a terminology-review workflow, and regression tests.
 
 > [!IMPORTANT]
 > This is an **independent aid**, not an official ASD/STEMG publication or a certified STE compliance checker. The copyrighted official dictionary and PDF are **not included**. Full vocabulary and technical/safety compliance require an authorized copy of the standard and qualified human review.
@@ -30,8 +30,6 @@ npx skills add iamaamir/asd-ste100-skill --list
 ```
 
 **Requirement:** Node.js and npm for `npx`; Python 3.9+ only for the optional checker. The writing skill itself does not need a Python runtime.
-
-These commands use the open-source [Skills CLI](https://github.com/vercel-labs/skills), not an npm package published by this repository. The CLI installs the skill from GitHub. The repository is public, and the CLI installs the skill directly from GitHub.
 
 ## Use it
 

@@ -55,6 +55,8 @@ def verify():
     assert html.lstrip().startswith('<!doctype html>'), 'HTML5 doctype missing'
     assert len(page.titles) == 1 and 'ASD-STE100' in page.titles[0] and 'Simplified Technical English' in page.titles[0], 'Missing descriptive SEO title'
     assert page.h1 == 1, 'Need one semantic H1'
+    assert 'https://agentskills.io/' not in html, 'No promotional Agent Skills link should appear on the site'
+    assert 'https://agentskills.io/' not in (ROOT / 'README.md').read_text(encoding='utf-8'), 'No promotional Agent Skills link should appear in the README'
     assert not page.duplicate_ids, f'Duplicate HTML ids: {page.duplicate_ids}'
     assert set(page.aria_refs).issubset(page.ids), f'Unresolved ARIA references: {set(page.aria_refs)-page.ids}'
     assert html.lstrip().startswith('<!doctype html>') and '<html lang="en">' in html, 'HTML language missing'
